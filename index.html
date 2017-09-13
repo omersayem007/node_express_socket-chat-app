@@ -1,0 +1,56 @@
+<html>
+
+<head>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.2/css/bulma.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+
+</head>
+
+
+
+<body>
+    <textarea class="textarea" id="getmeth" rows="18">
+      
+    </textarea>
+    <div class="field">
+        <label class="label">Message</label>
+        <div class="control">
+            <textarea class="textarea" placeholder="Textarea" rows="1" id="chat"></textarea>
+        </div>
+
+        <div class="field is-grouped">
+            <div class="control">
+                <button class="button is-primary" id="chatriger">Send</button>
+            </div>
+        </div>
+
+
+
+        <script>
+            var socket = io.connect("http://localhost:8080");
+
+            $(document).ready(function() {
+
+
+
+                $("#chatriger").click(function() {
+
+                    var text = $("#chat").val();
+                    socket.emit("messages", text);
+                });
+                socket.on("messages", function(data) {
+                    alert(data);
+                    $("getmeth").val(data);
+                });
+
+            })
+        </script>
+
+</body>
+
+
+
+</html>
